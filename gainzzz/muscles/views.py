@@ -19,7 +19,6 @@ def all_muscles(request):
 
 
 def muscle(request, muscle_id=0):
-
     muscle_group = Muscle.objects.get(id=muscle_id)
     muscle_dict = dict(name=muscle_group.name, description=muscle_group.description)
 
@@ -28,4 +27,17 @@ def muscle(request, muscle_id=0):
     for e in exercises:
         exercise_list.append(dict(name=e.name, description=e.description))
 
-    return JsonResponse(dict(muscle=muscle_dict, exercises=exercise_list))
+    stretches = Stretches.objects.filter(muscle_id=muscle_id)
+    stretches_list = list()
+    for s in stretches:
+        stretches_list.append(dict(name=s.name, description=s.description))
+
+    injuries = Injuries.objects.filter(muscle_id=muscle_id)
+    injuries_list = list()
+    for i in injuries:
+        injuries_list.append(dict(name=i.name, description=i.description))
+
+    return JsonResponse(dict(muscle=muscle_dict,
+                             exercises=exercise_list,
+                             stretches=stretches_list,
+                             injuries=injuries_list))
