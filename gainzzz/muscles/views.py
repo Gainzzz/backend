@@ -17,3 +17,7 @@ def all_muscles(request):
     muscles = Muscle.objects.values('name', 'description')
     return JsonResponse(dict(muscles=list(muscles)))
 
+
+def muscle(request, muscle_id=0):
+    muscle_group = Muscle.objects.filter(id=muscle_id)
+    return JsonResponse(dict(muscles=list(muscle_group)))
