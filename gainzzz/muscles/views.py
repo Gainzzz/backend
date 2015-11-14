@@ -19,7 +19,7 @@ def all_muscles(request):
 
 
 def muscle(request, muscle_id=0):
-    
+
     muscle_group = Muscle.objects.get(id=muscle_id)
     muscle_dict = dict(name=muscle_group.name, description=muscle_group.description)
 
