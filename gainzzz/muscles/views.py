@@ -19,10 +19,13 @@ def all_muscles(request):
 
 
 def muscle(request, muscle_id=0):
+    
     muscle_group = Muscle.objects.get(id=muscle_id)
+    muscle_dict = dict(name=muscle_group.name, description=muscle_group.description)
+
     exercises = Exercises.objects.filter(muscle_id=muscle_id)
     exercise_list = list()
     for e in exercises:
         exercise_list.append(dict(name=e.name, description=e.description))
 
-    return JsonResponse(dict(muscle=muscle_group, exercises=exercise_list))
+    return JsonResponse(dict(muscle=muscle_dict, exercises=exercise_list))
