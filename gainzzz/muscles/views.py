@@ -57,3 +57,11 @@ def muscle_name(request, name=None):
     response = JsonResponse(muscle_dict)
     response['Access-Control-Allow-Origin'] = "*"
     return response
+
+
+@csrf_exempt
+def exercise(request):
+    req = json.loads(request.body)
+    exerc = Exercises(name=req.name, description=req.description, image=req.image)
+    exerc.save()
+    return HttpResponse("OK")
