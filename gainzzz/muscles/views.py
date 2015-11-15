@@ -62,6 +62,6 @@ def muscle_name(request, name=None):
 @csrf_exempt
 def add_exercise(request):
     req = json.loads(request.body)
-    exerc = Exercises(name=req.name, description=req.description, image=req.image)
+    exerc = Exercises(name=req['name'], description=req['description'], image=req['image'])
     exerc.save()
     return HttpResponse("OK")
