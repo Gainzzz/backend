@@ -67,4 +67,26 @@ def add_exercise(request):
                       image=req.get('image'),
                       muscle_id=req.get('muscle_id'))
     exerc.save()
-    return HttpResponse("OK")
+    return HttpResponse("Created")
+
+
+@csrf_exempt
+def add_injury(request):
+    req = request.POST
+    exerc = Injuries(name=req.get('name'),
+                     description=req.get('description'),
+                     image=req.get('image'),
+                     muscle_id=req.get('muscle_id'))
+    exerc.save()
+    return HttpResponse("Created")
+
+
+@csrf_exempt
+def add_stretch(request):
+    req = request.POST
+    exerc = Stretches(name=req.get('name'),
+                      description=req.get('description'),
+                      image=req.get('image'),
+                      muscle_id=req.get('muscle_id'))
+    exerc.save()
+    return HttpResponse("Created")
