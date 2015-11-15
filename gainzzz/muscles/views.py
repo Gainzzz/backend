@@ -54,6 +54,6 @@ def muscle_name(request, name=None):
     muscle_group = Muscle.objects.get(name=name)
     muscle_dict = dict(id=muscle_group.id)
 
-    response = JsonResponse(dict(muscle=muscle_dict))
+    response = JsonResponse(muscle_dict)
     response['Access-Control-Allow-Origin'] = "*"
     return response
