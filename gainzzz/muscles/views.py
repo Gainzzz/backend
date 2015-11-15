@@ -13,11 +13,15 @@ def index(request):
     return HttpResponse("Hello, world. You're at the user index.")
 
 
+@csrf_exempt
 def all_muscles(request):
     muscles = Muscle.objects.values('name', 'description')
-    return JsonResponse(dict(muscles=list(muscles)))
+    response = JsonResponse(dict(muscles=list(muscles)))
+    response['Access-Control-Allow-Origin'] = "*"
+    return response
 
 
+@csrf_exempt
 def muscle(request, muscle_id=0):
     muscle_group = Muscle.objects.get(id=muscle_id)
     muscle_dict = dict(name=muscle_group.name, description=muscle_group.description)
@@ -39,7 +43,17 @@ def muscle(request, muscle_id=0):
 
     response = JsonResponse(dict(muscle=muscle_dict,
                                  exercises=exercise_list,
-                                stretches=stretches_list,
-                                injuries=injuries_list))
+                                 stretches=stretches_list,
+                                 injuries=injuries_list))
+    response['Access-Control-Allow-Origin'] = "*"
+    return response
+
+
+@csrf_exempt
+def muscle_name(request, name=None):
+    muscle_group = Muscle.objects.get(name=name)
+    muscle_dict = dict(id=muscle_group.id)
+
+    response = JsonResponse(dict(muscle=muscle_dict))
     response['Access-Control-Allow-Origin'] = "*"
     return response
