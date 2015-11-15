@@ -37,7 +37,9 @@ def muscle(request, muscle_id=0):
     for i in injuries:
         injuries_list.append(dict(name=i.name, description=i.description))
 
-    return JsonResponse(dict(muscle=muscle_dict,
-                             exercises=exercise_list,
-                             stretches=stretches_list,
-                             injuries=injuries_list))
+    response = JsonResponse(dict(muscle=muscle_dict,
+                                 exercises=exercise_list,
+                                stretches=stretches_list,
+                                injuries=injuries_list))
+    response['Access-Control-Allow-Origin'] = "*"
+    return response
