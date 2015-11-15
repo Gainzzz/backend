@@ -24,22 +24,22 @@ def all_muscles(request):
 @csrf_exempt
 def muscle(request, muscle_id=0):
     muscle_group = Muscle.objects.get(id=muscle_id)
-    muscle_dict = dict(name=muscle_group.name, description=muscle_group.description)
+    muscle_dict = dict(name=muscle_group.name, description=muscle_group.description, image=muscle_group.image)
 
     exercises = Exercises.objects.filter(muscle_id=muscle_id)
     exercise_list = list()
     for e in exercises:
-        exercise_list.append(dict(name=e.name, description=e.description))
+        exercise_list.append(dict(name=e.name, description=e.description, image=e.image))
 
     stretches = Stretches.objects.filter(muscle_id=muscle_id)
     stretches_list = list()
     for s in stretches:
-        stretches_list.append(dict(name=s.name, description=s.description))
+        stretches_list.append(dict(name=s.name, description=s.description, image=s.image))
 
     injuries = Injuries.objects.filter(muscle_id=muscle_id)
     injuries_list = list()
     for i in injuries:
-        injuries_list.append(dict(name=i.name, description=i.description))
+        injuries_list.append(dict(name=i.name, description=i.description, image=i.image))
 
     response = JsonResponse(dict(muscle=muscle_dict,
                                  exercises=exercise_list,
